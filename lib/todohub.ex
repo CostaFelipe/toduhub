@@ -1,18 +1,37 @@
 defmodule Todohub do
-  @moduledoc """
-  Documentation for `Todohub`.
-  """
+  def add_todo(title, description, status \\ false) do
+    Todohub.Todo.new(title, description, status)
+  end
 
-  @doc """
-  Hello world.
+  def list_todo(todos) do
+    Enum.map(todos, &"Title: #{&1.title} status: #{&1.status}")
+  end
 
-  ## Examples
+  def mark_todo_complete(todos, todo_id) do
+    case is_todo_available(todos, todo_id) do
+      nil ->
+        {:error, "Não existe este todo"}
 
-      iex> Todohub.hello()
-      :world
+      todo ->
+        updated_todo = %{todo | status: true}
+        todo_update(todos, updated_todo, todo_id)
+    end
+  end
 
-  """
-  def hello do
-    :world
+  defp todo_update(todos, update_todo, todo_id) do
+    Enum.map(todos, fn todo ->
+      if todo.id == todo_id do
+        update_todo
+      else
+        todo
+      end
+    end)
+  end
+
+  defp is_todo_available(todos, todo_id) do
+    Enum.find(todos, fn todo -> todo.id == todo_id end)
+  end
+
+  def remove_task() do
   end
 end

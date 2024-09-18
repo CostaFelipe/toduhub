@@ -11,4 +11,6 @@ defmodule Todohub.Todo do
       date_created: DateTime.utc_now()
     }
   end
+
+  # if true, do: "This will be seen", else: "This won't" "This will be seen" *lembrar
 end
