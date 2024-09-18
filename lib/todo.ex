@@ -11,5 +11,4 @@ defmodule Todohub.Todo do
       date_created: DateTime.utc_now()
     }
   end
-
 end
