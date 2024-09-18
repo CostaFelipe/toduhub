@@ -32,6 +32,16 @@ defmodule Todohub do
     Enum.find(todos, fn todo -> todo.id == todo_id end)
   end
 
-  def remove_task() do
+  def remove_task(todos, todo_id) do
+   update_todo = Enum.reject(todos, fn todo -> todo.id == todo_id end)
+   verification_remove_todo(todos, update_todo)
+  end
+
+  defp verification_remove_todo(todos, update_todo) do
+    if(length(update_todo) == length(todos)) do
+      {:error, "Nenhum tarefa com esse ID foi encontrada"}
+    else
+      {:ok, update_todo}
+    end
   end
 end
